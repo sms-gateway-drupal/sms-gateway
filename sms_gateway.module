@@ -12,16 +12,16 @@ function sms_gateway_help($path, $arg) {
   switch ($path) {
     case 'admin/help#sms_gateway':
       $output = '';
-      $output = .= '<p>' . t('The sms gateway module provides a drupal web interface for your sms transactions on your mobile phone with the use of the services provided by smsgateway.me.') . '</p>';
-      $output = .= '<p>' . t('This includes per user configuration, sending messages, retrieving messages, managing contacts, group messaging, bulk messaging, and other things you can do with sms in your mobile device(s).') . '</p>';
-      $output = .= '<p>' . t('The main maintainers of the this module is not in any way affiliated with smsgateway.me.') . '</p>';
-      $output = .= '<h2>' . t('Installation') . '</h2>';
-      $output = .= '<ul>';
-      $output = .= '<li>' . t('Create account in @url.', array('@url' => 'https://smsgateway.me/')) . '</li>';
-      $output = .= '<li>' . t('Download and install @name on your mobile phone and sign-in to your account.', array('@name' => '<b>SMS Gateway Me</b>')) . '</li>';
-      $output = .= '<li>' . t('Install and enable @name module into your drupal website.', array('@name' => '<b>SMS Gateway</b>')) . '</li>';
-      $output = .= '<li>' . t('Set username (your @account email) and password @path', array('@account' => 'smsgateway.me', '@path' => '/user/<uid>/sms-gateway/config')) . '</li>';
-      $output = .= '</ul>';
+      $output .= '<p>' . t('The sms gateway module provides a drupal web interface for your sms transactions on your mobile phone with the use of the services provided by smsgateway.me.') . '</p>';
+      $output .= '<p>' . t('This includes per user configuration, sending messages, retrieving messages, managing contacts, group messaging, bulk messaging, and other things you can do with sms in your mobile device(s).') . '</p>';
+      $output .= '<p>' . t('The main maintainers of the this module is not in any way affiliated with smsgateway.me.') . '</p>';
+      $output .= '<h2>' . t('Installation') . '</h2>';
+      $output .= '<ul>';
+      $output .= '<li>' . t('Create account in @url.', array('@url' => 'https://smsgateway.me/')) . '</li>';
+      $output .= '<li>' . t('Download and install @name on your mobile phone and sign-in to your account.', array('@name' => '<b>SMS Gateway Me</b>')) . '</li>';
+      $output .= '<li>' . t('Install and enable @name module into your drupal website.', array('@name' => '<b>SMS Gateway</b>')) . '</li>';
+      $output .= '<li>' . t('Set username (your @account email) and password @path', array('@account' => 'smsgateway.me', '@path' => '/user/<uid>/sms-gateway/config')) . '</li>';
+      $output .= '</ul>';
       return $output;
   }
 }
