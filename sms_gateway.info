@@ -1,0 +1,4 @@
+name = SMS Gateway
+description = A drupal web client for smsgateway.me.
+core = 7.x
+dependencies[] = entity
