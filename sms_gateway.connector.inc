@@ -12,4 +12,7 @@ class SMSGatewayConnector {
 
   const ENDPOINT_URL = 'https://smsgateway.me';
 
+  private $username;
+  private $password;
+
 }
