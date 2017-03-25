@@ -14,7 +14,7 @@ function sms_gateway_help($path, $arg) {
   global $user;
 
   $uid = $user->uid;
-  $config_path = 'user/' . $uid . 'sms-gateway/config';
+  $config_path = 'user/' . $uid . '/sms-gateway/config';
   $config_url = $base_url . $base_path . $config_path;
 
   switch ($path) {
@@ -28,7 +28,7 @@ function sms_gateway_help($path, $arg) {
       $output .= '<li>' . t('Create account in <a href="@url" target="_blank">@url</a>.', array('@url' => 'https://smsgateway.me/')) . '</li>';
       $output .= '<li>' . t('Download and install <b>@name</b> on your mobile phone and sign-in to your account.', array('@name' => 'SMS Gateway Me')) . '</li>';
       $output .= '<li>' . t('Install and enable <b>@name</b> module into your drupal website.', array('@name' => 'SMS Gateway')) . '</li>';
-      $output .= '<li>' . t('Set username (your @account email) and password <a href="@config_url">@config_path</a>',
+      $output .= '<li>' . t('Set username (your @account email) and password <a href="@config_url" target="_blank">@config_path</a>',
         array(
           '@account' => 'smsgateway.me',
           '@config_path' => $config_path,
