@@ -28,4 +28,11 @@ class SMSGatewayConnector {
     $this->password = $password;
   }
 
+  /**
+   * Retrieves the list of devices.
+   */
+  public function getDevices() {
+    return $this->sendResource('/api/v3/devices');
+  }
+
 }
