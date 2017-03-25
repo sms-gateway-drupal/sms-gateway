@@ -15,4 +15,17 @@ class SMSGatewayConnector {
   private $username;
   private $password;
 
+  /**
+   * Set username and password.
+   *
+   * @param string $username
+   *   The username in SMS Gateway.
+   * @param string $password
+   *   The password in SMS Gateway.
+   */
+  public function __construct($username, $password) {
+    $this->username = $username;
+    $this->password = $password;
+  }
+
 }
