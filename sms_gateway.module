@@ -46,7 +46,7 @@ function sms_gateway_menu() {
   $items['user/%user/sms-gateway'] = array(
     'title' => 'SMS gateway',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('sms_gateway_config_form'),
+    'page arguments' => array('sms_gateway_config_form', 1),
     'access arguments' => array('administer sms gateway'),
     'type' => MENU_LOCAL_TASK,
   );
