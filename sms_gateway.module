@@ -82,12 +82,14 @@ function sms_gateway_entity_info() {
  */
 function sms_gateway_config_form($form, &$form_state, $account) {
   $form_state['account'] = $account;
+  $entity = reset(entity_load('sms_gateway_config', FALSE, array('uid' => $account->uid)));
 
   $form['username'] = array(
     '#type' => 'textfield',
     '#title' => t('Username'),
     '#description' => t('Your smsgateway.me username.'),
     '#required' => TRUE,
+    '#default_value' => $entity->username,
   );
 
   $form['password'] = array(
