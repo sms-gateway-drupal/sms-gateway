@@ -47,10 +47,11 @@ function sms_gateway_help($path, $arg) {
 function sms_gateway_menu() {
   $items['user/%user/sms-gateway'] = array(
     'title' => 'SMS gateway',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('sms_gateway_config_form', 1),
+    'page callback' => 'sms_gateway_config_page',
+    'page arguments' => array(1),
     'access arguments' => array('administer sms gateway'),
     'type' => MENU_LOCAL_TASK,
+    'file' => 'sms_gateway.pages.inc',
   );
 
   $items['user/%user/sms-gateway/config'] = array(
