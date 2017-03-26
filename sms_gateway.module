@@ -105,3 +105,17 @@ function sms_gateway_config_form($form, &$form_state, $account) {
 
   return $form;
 }
+
+/**
+ * Form submission handler: Save sms gateway config form.
+ */
+function sms_gateway_config_form_submit($form, &$form_state) {
+  $values = array(
+    'username' => $form_state['values']['username'],
+    'password' => $form_state['values']['password'],
+    'uid' => $form_state['account']->uid,
+  );
+
+  $entity = entity_get_controller('sms_gateway_config')->create($values);
+  entity_get_controller('sms_gateway_config')->save($entity);
+}
