@@ -8,11 +8,13 @@
 /**
  * Menu callback; displays Sms gateway config form.
  */
-function sms_gateway_config_page($account) {
-  $config = sms_gateway_config_load_by_user($account);
+function sms_gateway_config_page() {
+  global $user;
+
+  $config = sms_gateway_config_load_by_user($user);
 
   if (!$config) {
-    $config = sms_gateway_config_create($account);
+    $config = sms_gateway_config_create($user);
   }
 
   return drupal_get_form('sms_gateway_config_form', $config);
