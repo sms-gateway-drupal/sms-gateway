@@ -71,3 +71,12 @@ function sms_gateway_entity_info() {
 
   return $return;
 }
+
+/**
+ * Sms gateway config form.
+ */
+function sms_gateway_config_form($form, &$form_state) {
+  global $user;
+
+  return $form;
+}
