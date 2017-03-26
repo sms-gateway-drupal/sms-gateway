@@ -14,9 +14,14 @@ function _sms_gateway_array($arrays = array(), $keys = array()) {
   foreach ($arrays as $array) {
     $array_new = array();
 
-    foreach ($keys as $key) {
-      $key_value = $array[$key];
-      $to_add = array($key => $key_value);
+    foreach ($keys as $key => $key_value) {
+      if (is_int($key)) {
+        $to_add = array($key_value => $array[$key_value]);
+      }
+      else {
+        $to_add = array($key_value => $array[$key]);
+      }
+
       $array_new = array_merge($array_new, $to_add);
     }
 
