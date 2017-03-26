@@ -81,54 +81,79 @@ function sms_gateway_entity_info() {
 }
 
 /**
- * Form constructor: Sms gateway config form.
+ * Loads an sms_gateway_config entity.
+ *
+ * @param int $id
+ *   The ID of the sms_gateway_config entity.
+ * @param bool $reset
+ *   Whether to reset the cache.
+ *
+ * @return object|false
+ *   The loaded sms_gateway_config; otherwise FALSE.
  */
-function sms_gateway_config_form($form, &$form_state, $account) {
-  $form_state['account'] = $account;
-  $entity = reset(entity_load('sms_gateway_config', FALSE, array('uid' => $account->uid)));
-
-  $form['username'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Username'),
-    '#description' => t('Your smsgateway.me username.'),
-    '#required' => TRUE,
-    '#default_value' => $entity->username,
-  );
-
-  $form['password'] = array(
-    '#type' => 'password',
-    '#title' => t('Password'),
-    '#description' => t('Your smsgateway.me password.'),
-    '#required' => TRUE,
-  );
-
-  $form['device'] = array(
-    '#type' => 'select',
-    '#title' => t('Default device'),
-    '#options' => array(0 => t('None')),
-    '#description' => t('Set your default sending device.'),
-    '#required' => TRUE,
-  );
-
-  $form['actions'] = array('#type' => 'actions');
-  $form['actions']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save settings'),
-  );
-
-  return $form;
+function sms_gateway_config_load($id, $reset = FALSE) {
+  $configs = sms_gateway_config_load_multiple(array($id), array(), $reset);
+  return reset($configs);
 }
 
 /**
- * Form submission handler: Save sms gateway config form.
+ * Loads multiple sms_gateway_config entities by ID or based on conditions.
+ *
+ * @param array $ids
+ *   Array of sms_gateway_config IDs or FALSE.
+ * @param array $conditions
+ *   Array of conditions to filter with.
+ * @param bool $reset
+ *   Whether to reset the cache.
+ *
+ * @return array|false
+ *   Array of sms_gateway_config entities.
  */
-function sms_gateway_config_form_submit($form, &$form_state) {
-  $values = array(
-    'username' => $form_state['values']['username'],
-    'password' => $form_state['values']['password'],
-    'uid' => $form_state['account']->uid,
-  );
+function sms_gateway_config_load_multiple($ids, array $conditions = array(), $reset = FALSE) {
+  return entity_load('sms_gateway_config', $ids, $conditions, $reset);
+}
 
-  $entity = entity_get_controller('sms_gateway_config')->create($values);
-  entity_get_controller('sms_gateway_config')->save($entity);
+/**
+ * Loads the sms_gateway_config entity by an account.
+ *
+ * @param object $account
+ *   The account to use.
+ *
+ * @return object|false
+ *   The loaded sms_gateway_config entity; otherwise, FALSE.
+ */
+function sms_gateway_config_load_by_user($account) {
+  $configs = sms_gateway_config_load_multiple(FALSE, array('uid' => $account->uid));
+  return reset($configs);
+}
+
+/**
+ * Creates a new sms_gateway_config entity.
+ *
+ * @param object $account
+ *   The account to use.
+ *
+ * @return object|false
+ *   An sms_gateway_config entity.
+ */
+function sms_gateway_config_create($account) {
+  return entity_get_controller('sms_gateway_config')->create(array(
+    'uid' => $account->uid,
+    'username' => '',
+    'password' => '',
+    'device' => 0,
+  ));
+}
+
+/**
+ * Saves an sms_gateway_config entity.
+ *
+ * @param object $config
+ *   The config to save.
+ *
+ * @return int
+ *   Either the status SAVED_NEW or SAVED_UPDATED.
+ */
+function sms_gateway_config_save($config) {
+  return entity_get_controller('sms_gateway_config')->save($config);
 }
