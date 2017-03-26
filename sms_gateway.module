@@ -70,6 +70,7 @@ function sms_gateway_entity_info() {
       'description' => t('Sms gateway configurations.'),
       'controller class' => 'EntityAPIController',
       'base table' => 'sms_gateway_config',
+      'entity keys' => array('id' => 'id'),
     ),
   );
 
