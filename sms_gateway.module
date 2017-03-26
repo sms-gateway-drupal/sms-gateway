@@ -5,6 +5,8 @@
  * Module file for sms gateway.
  */
 
+module_load_include('inc', 'sms_gateway', 'sms_gateway.helpers');
+
 /**
  * Implements hook_help().
  */
