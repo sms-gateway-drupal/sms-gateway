@@ -8,7 +8,7 @@
 /**
  * Class for connecting to SMS Gateway.
  */
-class SMSGatewayConnector {
+class SmsGatewayConnector {
 
   private $endpointUrl;
   private $username;
