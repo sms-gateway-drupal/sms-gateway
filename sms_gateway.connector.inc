@@ -24,8 +24,8 @@ class SMSGatewayConnector {
    */
   public function __construct($username, $password, $endpointUrl = 'https://smsgateway.me') {
     $this->endpointUrl = $endpointUrl;
-    $this->username = $username;
-    $this->password = $password;
+    $this->username    = $username;
+    $this->password    = $password;
   }
 
   /**
