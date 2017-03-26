@@ -34,17 +34,12 @@ function _sms_gateway_array($arrays = array(), $keys = array()) {
 /**
  * Helper devices.
  */
-function _sms_gateway_devices($action = "status") {
-  $api_client = new SmsGatewayConnector("", "");
+function sms_gateway_devices($action = "status") {
+  $api_client = _sms_gateway_client();
   $devices = $api_client->getDevices();
 
   if ($action === "status") {
-    if ($devices['result']['total'] > 0) {
-      return TRUE;
-    }
-    else {
-      return FALSE;
-    }
+    return $devices['result']['total'] > 0;
   }
 
   if ($action === "total") {
@@ -57,4 +52,27 @@ function _sms_gateway_devices($action = "status") {
       array('id', 'name' => 'ngalan', 'provider'));
     return $devices;
   }
+}
+
+/**
+ * Retrieves the client for the current user.
+ *
+ * @param object $account
+ *   (optional The account to get the sms_gateway_config entity.
+ *
+ * @return SmsGatewayConnector|false
+ *   The connector client; othewise FALSE.
+ */
+function _sms_gateway_client($account = NULL) {
+  global $user;
+
+  if (!isset($account)) {
+    $account = $user;
+  }
+
+  if ($config = sms_gateway_config_load_by_user($account)) {
+    return new SMSGatewayConnector($config->username, $config->password);
+  }
+
+  return FALSE;
 }
