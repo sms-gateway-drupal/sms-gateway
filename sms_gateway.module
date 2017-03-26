@@ -78,5 +78,11 @@ function sms_gateway_entity_info() {
 function sms_gateway_config_form($form, &$form_state) {
   global $user;
 
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save settings'),
+  );
+
   return $form;
 }
