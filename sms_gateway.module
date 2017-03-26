@@ -78,10 +78,24 @@ function sms_gateway_entity_info() {
 }
 
 /**
- * Sms gateway config form.
+ * Form constructor: Sms gateway config form.
  */
-function sms_gateway_config_form($form, &$form_state) {
-  global $user;
+function sms_gateway_config_form($form, &$form_state, $account) {
+  $form_state['account'] = $account;
+
+  $form['username'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Username'),
+    '#description' => t('Your smsgateway.me username.'),
+    '#required' => TRUE,
+  );
+
+  $form['password'] = array(
+    '#type' => 'password',
+    '#title' => t('Password'),
+    '#description' => t('Your smsgateway.me password.'),
+    '#required' => TRUE,
+  );
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
