@@ -30,3 +30,31 @@ function _sms_gateway_array($arrays = array(), $keys = array()) {
 
   return $return;
 }
+
+/**
+ * Helper devices.
+ */
+function _sms_gateway_devices($action = "status") {
+  $api_client = new SmsGatewayConnector("", "");
+  $devices = $api_client->getDevices();
+
+  if ($action === "status") {
+    if ($devices['result']['total'] > 0) {
+      return TRUE;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
+  if ($action === "total") {
+    return $devices['result']['total'];
+  }
+
+  if ($action === "list") {
+    $devices = $devices['result']['data'];
+    $devices = _sms_gateway_array($devices,
+      array('id', 'name' => 'ngalan', 'provider'));
+    return $devices;
+  }
+}
