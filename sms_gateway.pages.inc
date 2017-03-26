@@ -40,10 +40,13 @@ function sms_gateway_config_form($form, &$form_state, $config) {
   );
 
   if (empty($form_state['config']->is_new)) {
+    $devices = sms_gateway_devices('list');
+    $devices = array_combine(array_column($devices, 'id'), array_column($devices, 'name'));
+
     $form['device'] = array(
       '#type' => 'select',
       '#title' => t('Default device'),
-      '#options' => array(0 => t('None')),
+      '#options' => array(0 => t('None')) + $devices,
       '#description' => t('Set your default sending device.'),
       '#required' => TRUE,
       '#default_value' => $form_state['config']->device,
