@@ -57,12 +57,12 @@ function sms_gateway_schema() {
         'default' => '',
         'description' => "Smsgateway.me password (hashed).",
       ),
-      'device_id_default' => array(
+      'device' => array(
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
         'size' => 'normal',
-        'description' => 'Smsgateway.me default device ID.',
+        'description' => 'Smsgateway.me default sending device ID.',
       ),
     ),
     'primary key' => array('id'),
