@@ -98,7 +98,7 @@ function sms_gateway_config_load($id, $reset = FALSE) {
 /**
  * Loads multiple sms_gateway_config entities by ID or based on conditions.
  *
- * @param array $ids
+ * @param array|false $ids
  *   Array of sms_gateway_config IDs or FALSE.
  * @param array $conditions
  *   Array of conditions to filter with.
@@ -108,7 +108,7 @@ function sms_gateway_config_load($id, $reset = FALSE) {
  * @return array|false
  *   Array of sms_gateway_config entities.
  */
-function sms_gateway_config_load_multiple(array | FALSE $ids, array $conditions = array(), $reset = FALSE) {
+function sms_gateway_config_load_multiple($ids, array $conditions = array(), $reset = FALSE) {
   return entity_load('sms_gateway_config', $ids, $conditions, $reset);
 }
 
