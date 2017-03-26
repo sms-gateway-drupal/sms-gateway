@@ -2,3 +2,5 @@ name = SMS Gateway
 description = A drupal web client for smsgateway.me.
 core = 7.x
 dependencies[] = entity
+
+files[] = sms_gateway.connector.inc
