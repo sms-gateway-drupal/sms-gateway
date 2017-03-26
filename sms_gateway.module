@@ -38,3 +38,20 @@ function sms_gateway_help($path, $arg) {
       return $output;
   }
 }
+
+/**
+ * Implements hook_entity_info().
+ */
+function sms_gateway_entity_info() {
+  $return = array(
+    'sms_gateway_config' => array(
+      'label' => t('Sms gateway config'),
+      'plural label' => t('Sms gateway configs'),
+      'description' => t('Sms gateway configurations.'),
+      'controller class' => 'EntityAPIController',
+      'base table' => 'sms_gateway_config',
+    ),
+  );
+
+  return $return;
+}
