@@ -4,3 +4,23 @@
  * @file
  * Install, update, uninstall functions for the sms_gateway.
  */
+
+/**
+ * Implements hook_requirements().
+ */
+function sms_gateway_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+  $curl_available = function_exists('curl_init');
+
+  if (!$curl_available) {
+    $requirements['sms_gateway'] = array(
+      'title' => $t('cURL'),
+      'value' => $t('Not found'),
+      'severity' => REQUIREMENT_ERROR,
+      'description' => $t("SMS gateway requires the PHP <a href='!curl_url'>cURL</a> library.", array('!curl_url' => 'http://php.net/manual/en/curl.setup.php')),
+    );
+  }
+
+  return $requirements;
+}
