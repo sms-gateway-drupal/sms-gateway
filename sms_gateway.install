@@ -24,3 +24,52 @@ function sms_gateway_requirements($phase) {
 
   return $requirements;
 }
+
+/**
+ * Implements hook_schema().
+ */
+function sms_gateway_schema() {
+  $schema['sms_gateway'] = array(
+    'description' => 'Stores sms_gateway per user config settings.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique config ID.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Creator user's {users}.uid",
+      ),
+      'username' => array(
+        'type' => 'varchar',
+        'length' => 254,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Smsgateway.me username.',
+      ),
+      'password' => array(
+        'type' => 'varchar',
+        'length' => 254,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => "Smsgateway.me password (hashed).",
+      ),
+      'device_id_default' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'normal',
+        'description' => 'Smsgateway.me default device ID.',
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+
+  return $schema;
+}
