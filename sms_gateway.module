@@ -43,13 +43,17 @@ function sms_gateway_help($path, $arg) {
  * Implements hook_menu().
  */
 function sms_gateway_menu() {
-  $items['user/%user/sms-gateway/config'] = array(
-    'title' => 'SMS Gateway',
+  $items['user/%user/sms-gateway'] = array(
+    'title' => 'SMS gateway',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('sms_gateway_config_form'),
-    'access arguments' => array('adminer sms_gateway'),
+    'access arguments' => array('administer sms gateway'),
     'type' => MENU_LOCAL_TASK,
-    'weight' => 100,
+  );
+
+  $items['user/%user/sms-gateway/config'] = array(
+    'title' => 'Config',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
   );
 
   return $items;
