@@ -29,7 +29,7 @@ function sms_gateway_config_form($form, &$form_state, $config) {
     '#title' => t('Username'),
     '#description' => t('Your smsgateway.me username.'),
     '#required' => TRUE,
-    '#default_value' => $config->username,
+    '#default_value' => $form_state['config']->username,
   );
 
   $form['password'] = array(
@@ -39,14 +39,16 @@ function sms_gateway_config_form($form, &$form_state, $config) {
     '#required' => TRUE,
   );
 
-  $form['device'] = array(
-    '#type' => 'select',
-    '#title' => t('Default device'),
-    '#options' => array(0 => t('None')),
-    '#description' => t('Set your default sending device.'),
-    '#required' => TRUE,
-    '#default_value' => $config->device,
-  );
+  if (empty($form_state['config']->is_new)) {
+    $form['device'] = array(
+      '#type' => 'select',
+      '#title' => t('Default device'),
+      '#options' => array(0 => t('None')),
+      '#description' => t('Set your default sending device.'),
+      '#required' => TRUE,
+      '#default_value' => $form_state['config']->device,
+    );
+  }
 
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -63,5 +65,6 @@ function sms_gateway_config_form($form, &$form_state, $config) {
 function sms_gateway_config_form_submit($form, &$form_state) {
   $form_state['config']->username = $form_state['values']['username'];
   $form_state['config']->password = $form_state['values']['password'];
+
   sms_gateway_config_save($form_state['config']);
 }
