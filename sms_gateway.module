@@ -45,16 +45,15 @@ function sms_gateway_help($path, $arg) {
  * Implements hook_menu().
  */
 function sms_gateway_menu() {
-  $items['user/%user/sms-gateway'] = array(
+  $items['admin/config/sms-gateway'] = array(
     'title' => 'SMS gateway',
     'page callback' => 'sms_gateway_config_page',
     'page arguments' => array(1),
     'access arguments' => array('administer sms gateway'),
-    'type' => MENU_LOCAL_TASK,
     'file' => 'sms_gateway.pages.inc',
   );
 
-  $items['user/%user/sms-gateway/config'] = array(
+  $items['admin/config/sms-gateway/edit'] = array(
     'title' => 'Config',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
