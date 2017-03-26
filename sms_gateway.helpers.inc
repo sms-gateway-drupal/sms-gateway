@@ -34,7 +34,7 @@ function _sms_gateway_array($arrays = array(), $keys = array()) {
 /**
  * Helper devices.
  */
-function sms_gateway_devices($action = "status") {
+function sms_gateway_devices($action = "status", array $options = array()) {
   $api_client = _sms_gateway_client();
   $devices = $api_client->getDevices();
 
@@ -48,8 +48,13 @@ function sms_gateway_devices($action = "status") {
 
   if ($action === "list") {
     $devices = $devices['result']['data'];
-    $devices = _sms_gateway_array($devices,
-      array('id', 'name' => 'ngalan', 'provider'));
+
+    if (empty($options['properties'])) {
+      $options['properties'] = array('id', 'name');
+    }
+
+    $devices = _sms_gateway_array($devices, $options['properties']);
+
     return $devices;
   }
 }
