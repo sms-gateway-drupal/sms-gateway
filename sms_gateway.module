@@ -99,6 +99,14 @@ function sms_gateway_config_form($form, &$form_state, $account) {
     '#required' => TRUE,
   );
 
+  $form['device'] = array(
+    '#type' => 'select',
+    '#title' => t('Default device'),
+    '#options' => array(0 => t('None')),
+    '#description' => t('Set your default sending device.'),
+    '#required' => TRUE,
+  );
+
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
