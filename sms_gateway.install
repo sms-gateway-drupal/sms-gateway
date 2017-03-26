@@ -29,7 +29,7 @@ function sms_gateway_requirements($phase) {
  * Implements hook_schema().
  */
 function sms_gateway_schema() {
-  $schema['sms_gateway'] = array(
+  $schema['sms_gateway_config'] = array(
     'description' => 'Stores sms_gateway per user config settings.',
     'fields' => array(
       'id' => array(
