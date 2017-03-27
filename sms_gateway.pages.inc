@@ -19,8 +19,8 @@ function sms_gateway_config_page() {
 
   $status = sms_gateway_status();
 
-  if (!$status) {
-    drupal_set_message(t('smsgateway.me is unreachable.'), 'error');
+  if (!$status && empty($config->is_new)) {
+    drupal_set_message(t('Smsgateway.me is unreachable.'), 'error');
   }
 
   return drupal_get_form('sms_gateway_config_form', $config, $status);
