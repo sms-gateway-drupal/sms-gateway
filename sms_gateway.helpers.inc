@@ -40,8 +40,12 @@ function sms_gateway_devices($action = "status", array $options = array()) {
   $api_client = _sms_gateway_client();
   $devices = $api_client->getDevices();
 
+  if (!$devices) {
+    return FALSE;
+  }
+
   if ($action === "status") {
-    return $devices['result']['total'] > 0;
+    return $devices['status'];
   }
 
   if ($action === "total") {
@@ -54,6 +58,22 @@ function sms_gateway_devices($action = "status", array $options = array()) {
 
     return $devices;
   }
+}
+
+/**
+ * Checks smsgateway.me status.
+ *
+ * @return bool
+ *   The status of smsgateway.me.
+ */
+function sms_gateway_status() {
+  $client = _sms_gateway_client();
+
+  if (!$client) {
+    return FALSE;
+  }
+
+  return (bool) $client->isAvailable();
 }
 
 /**
