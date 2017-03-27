@@ -17,7 +17,13 @@ function sms_gateway_config_page() {
     $config = sms_gateway_config_create($user);
   }
 
-  return drupal_get_form('sms_gateway_config_form', $config);
+  $status = sms_gateway_status();
+
+  if (!$status) {
+    drupal_set_message(t('smsgateway.me is unreachable.'), 'error');
+  }
+
+  return drupal_get_form('sms_gateway_config_form', $config, $status);
 }
 
 /**
@@ -38,8 +44,17 @@ function sms_gateway_devices_page() {
 /**
  * Form constructor for sms gateway config form.
  */
-function sms_gateway_config_form($form, &$form_state, $config) {
+function sms_gateway_config_form($form, &$form_state, $config, $status) {
   $form_state['config'] = $config;
+
+  $devices = FALSE;
+  if ($status) {
+    $devices = sms_gateway_devices('list');
+
+    if ($devices === FALSE) {
+      drupal_set_message(t('Provided credentials are incorrect.'), 'error');
+    }
+  }
 
   $form['username'] = array(
     '#type' => 'textfield',
@@ -47,6 +62,7 @@ function sms_gateway_config_form($form, &$form_state, $config) {
     '#description' => t('Your smsgateway.me username.'),
     '#required' => TRUE,
     '#default_value' => $form_state['config']->username,
+    '#disabled' => !(($status && $devices === FALSE) || !empty($form_state['config']->is_new)),
   );
 
   $form['password'] = array(
@@ -54,10 +70,10 @@ function sms_gateway_config_form($form, &$form_state, $config) {
     '#title' => t('Password'),
     '#description' => t('Your smsgateway.me password.'),
     '#required' => TRUE,
+    '#disabled' => !(($status && $devices === FALSE) || !empty($form_state['config']->is_new)),
   );
 
-  if (empty($form_state['config']->is_new)) {
-    $devices = sms_gateway_devices('list');
+  if (empty($form_state['config']->is_new) && $status && $devices) {
     $devices = array_column($devices, 'name', 'id');
 
     $form['device'] = array(
