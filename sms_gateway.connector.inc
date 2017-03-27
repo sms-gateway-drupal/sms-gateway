@@ -49,15 +49,17 @@ class SmsGatewayConnector {
    *   The path to send the request.
    * @param array $data
    *   Data to be sent to smsgateway.me.
+   * @param string $method
+   *   Whether to use GET or POST.
    *
-   * @return mixed
-   *   The JSON data returned from smsgateway.me converted to an array.
+   * @return bool
+   *   Whether the request was made successfully or not.
    *
    * @todo Would be nice to use drupal_http_request() although `verify_peer`
    * needs to be disabled. Unfortunately, we can't get it to work (using
    * context). We use cURL here for now.
    */
-  protected function sendResource($resource, array $data = array()) {
+  protected function sendResource($resource = '', array $data = array(), $method = 'POST') {
     $url = $this->endpointUrl . $resource;
 
     $data += array(
@@ -66,11 +68,19 @@ class SmsGatewayConnector {
     );
 
     $request = curl_init();
+    $query = http_build_query($data);
 
     curl_setopt($request, CURLOPT_URL, $url);
     curl_setopt($request, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($request, CURLOPT_POST, TRUE);
-    curl_setopt($request, CURLOPT_POSTFIELDS, http_build_query($data));
+
+    if ($method === 'POST') {
+      curl_setopt($request, CURLOPT_POST, TRUE);
+      curl_setopt($request, CURLOPT_POSTFIELDS, $query);
+    }
+    elseif ($method === 'GET') {
+      $url .= '?' . $query;
+    }
+
     curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE);
 
     $response = curl_exec($request);
@@ -82,9 +92,30 @@ class SmsGatewayConnector {
 
     curl_close($request);
 
-    $json_response = drupal_json_decode($response);
-    if (!empty($json_response['success'])) {
-      return $json_response;
+    return $response;
+  }
+
+  /**
+   * Makes a request.
+   *
+   * @param string $resource
+   *   The path to send the request.
+   * @param array $data
+   *   Data to be sent to smsgateway.me.
+   * @param string $method
+   *   Whether to use GET or POST.
+   *
+   * @return mixed
+   *   The JSON data returned from smsgateway.me converted to an array.
+   */
+  protected function makeRequest($resource = '', array $data = array(), $method = 'POST') {
+    $response = $this->sendResource($resource, $data, $method);
+
+    if ($response) {
+      $json_response = drupal_json_decode($response);
+      if (!empty($json_response['success'])) {
+        return $json_response;
+      }
     }
 
     return FALSE;
