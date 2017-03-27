@@ -6,7 +6,7 @@
  */
 
 /**
- * Menu callback; displays Sms gateway config form.
+ * Menu callback; displays sms gateway config form.
  */
 function sms_gateway_config_page() {
   global $user;
@@ -21,7 +21,22 @@ function sms_gateway_config_page() {
 }
 
 /**
- * Form constructor for Sms gateway config form.
+ * Menu callback; displays sms gateway devices form.
+ */
+function sms_gateway_devices_page() {
+  global $user;
+
+  $config = sms_gateway_config_load_by_user($user);
+
+  if (!$config) {
+    $config = sms_gateway_config_create($user);
+  }
+
+  return drupal_get_form('sms_gateway_devices_form', $config);
+}
+
+/**
+ * Form constructor for sms gateway config form.
  */
 function sms_gateway_config_form($form, &$form_state, $config) {
   $form_state['config'] = $config;
