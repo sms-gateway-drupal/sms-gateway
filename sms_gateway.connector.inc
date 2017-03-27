@@ -29,6 +29,20 @@ class SmsGatewayConnector {
   }
 
   /**
+   * Retrieves the list of devices.
+   */
+  public function getDevices() {
+    return $this->makeRequest('/api/v3/devices');
+  }
+
+  /**
+   * Checks if the server is available.
+   */
+  public function isAvailable() {
+    return $this->sendResource('', array(), 'GET');
+  }
+
+  /**
    * Sends a POST request to smsgateway.me.
    *
    * @param string $resource
@@ -74,13 +88,6 @@ class SmsGatewayConnector {
     }
 
     return FALSE;
-  }
-
-  /**
-   * Retrieves the list of devices.
-   */
-  public function getDevices() {
-    return $this->sendResource('/api/v3/devices');
   }
 
 }
