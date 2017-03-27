@@ -1,0 +1,24 @@
+.sms-gateway-devices .form-type-item label {
+  display: inline-block;
+  margin-right: 5px;
+  padding-right: 10px;
+  text-align: right;
+  width: 125px;
+}
+
+.sms-gateway-devices-info .form-item {
+  margin: 0;
+  padding: 0;
+}
+
+.sms-gateway-devices-info .form-item label {
+  background-color: #D5F9FD;
+}
+
+.sms-gateway-devices-info .form-item:nth-of-type(2n+2) {
+  background-color: #FCF1EF;
+}
+
+.sms-gateway-devices-info .form-item:nth-of-type(2n+2) label {
+  background-color: #CEE0E2;
+}
