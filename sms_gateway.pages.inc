@@ -43,7 +43,7 @@ function sms_gateway_config_form($form, &$form_state, $config) {
 
   if (empty($form_state['config']->is_new)) {
     $devices = sms_gateway_devices('list');
-    $devices = array_combine(array_column($devices, 'id'), array_column($devices, 'name'));
+    $devices = array_column($devices, 'name', 'id');
 
     $form['device'] = array(
       '#type' => 'select',
