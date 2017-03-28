@@ -7,19 +7,29 @@
 
 /**
  * Sanitize array with desired keys.
+ *
+ * @param array $arrays
+ *   Array to be sanitized.
+ * @param array $keys
+ *   Only these defined keys shall be returned. To change key name, change value
+ *   from being a string to an associative array.
+ *
+ * @return array
+ *   Sanized array.
  */
-function _sms_gateway_array($arrays = array(), $keys = array()) {
+function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
   $return = array();
 
   foreach ($arrays as $array) {
     $array_new = array();
 
-    foreach ($keys as $key => $key_value) {
-      if (is_int($key)) {
-        $to_add = array($key_value => $array[$key_value]);
+    foreach ($keys as $key) {
+      if (is_array($key)) {
+        reset($key);
+        $to_add = array(current($key) => $array[key($key)]);
       }
       else {
-        $to_add = array($key_value => $array[$key]);
+        $to_add = array($key => $array[$key]);
       }
 
       $array_new = array_merge($array_new, $to_add);
