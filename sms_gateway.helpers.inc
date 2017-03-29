@@ -25,7 +25,6 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
 
     foreach ($keys as $key) {
       if (is_array($key)) {
-        reset($key);
         $to_add = array(current($key) => $array[key($key)]);
       }
       else {

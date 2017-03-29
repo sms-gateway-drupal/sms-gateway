@@ -22,3 +22,7 @@
 .sms-gateway-devices-info .form-item:nth-of-type(2n+2) label {
   background-color: #CEE0E2;
 }
+
+.sms-gateway-devices-actions {
+  margin-top: 30px;
+}

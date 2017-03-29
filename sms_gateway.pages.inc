@@ -116,7 +116,7 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
         'number',
         'provider',
         'country',
-        'connection_type',
+        array('connection_type' => 'connection'),
         'battery',
         'signal',
         'wifi',
@@ -133,7 +133,7 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
   foreach ($devices as $device) {
     $form['device_' . $device['id']] = array(
       '#type' => 'fieldset',
-      '#title' => $device['id'] . ': ' . $device['name'],
+      '#title' => $device['name'],
       '#collapsible' => TRUE,
       '#group' => 'devices',
       '#attributes' => array(
@@ -152,11 +152,16 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
     );
 
     $form['device_' . $device['id']] += array(
+      'id' => array(
+        '#type' => 'item',
+        '#title' => t('Device ID'),
+        '#markup' => $device['id'],
+        '#prefix' => '<div class="sms-gateway-devices-info">',
+      ),
       'model' => array(
         '#type' => 'item',
         '#title' => t('Unit model'),
         '#markup' => $device['make'] . ', ' . $device['model'],
-        '#prefix' => '<div class="sms-gateway-devices-info">',
       ),
       'number' => array(
         '#type' => 'item',
@@ -176,7 +181,7 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
       'connection' => array(
         '#type' => 'item',
         '#title' => t('Connection type'),
-        '#markup' => $device['connection_type'],
+        '#markup' => $device['connection'],
       ),
       'battery' => array(
         '#type' => 'item',
@@ -197,6 +202,20 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
         '#type' => 'item',
         '#title' => t('Last seen'),
         '#markup' => _sms_gateway_time_elapsed_string('@' . $device['last_seen']),
+        '#suffix' => '</div>',
+      ),
+    );
+
+    // Per device actions.
+    $form['device_' . $device['id']]['actions'] = array(
+      'ping' => array(
+        '#type' => 'button',
+        '#value' => t('Ping device'),
+        '#prefix' => '<div class="sms-gateway-devices-actions">',
+      ),
+      'delete' => array(
+        '#type' => 'button',
+        '#value' => t('Delete device'),
         '#suffix' => '</div>',
       ),
     );
