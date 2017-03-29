@@ -55,7 +55,7 @@ function sms_gateway_schema() {
         'length' => 254,
         'not null' => TRUE,
         'default' => '',
-        'description' => "Smsgateway.me password (hashed).",
+        'description' => 'Smsgateway.me password (hashed).',
       ),
       'device' => array(
         'type' => 'int',
@@ -63,6 +63,48 @@ function sms_gateway_schema() {
         'default' => 0,
         'size' => 'normal',
         'description' => 'Smsgateway.me default sending device ID.',
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+
+  $schema['sms_gateway_contacts'] = array(
+    'description' => 'Stores sms_gateway per user config settings.',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique contact ID.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Creator user's {users}.uid",
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 254,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Contact name.',
+      ),
+      'number' => array(
+        'type' => 'varchar',
+        'length' => 254,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Contact mobile number.',
+      ),
+      'contact_id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'normal',
+        'description' => 'Smsgateway.me contact ID.',
       ),
     ),
     'primary key' => array('id'),
