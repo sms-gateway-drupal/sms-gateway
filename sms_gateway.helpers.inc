@@ -86,26 +86,16 @@ function sms_gateway_status() {
 }
 
 /**
- * Retrieves the client for the current user.
+ * Retrieves the client.
  *
- * @param object $account
- *   (optional The account to get the sms_gateway_config entity.
+ * @param object $config
+ *   The sms_gateway_config entity.
  *
  * @return SmsGatewayConnector|false
  *   The connector client; othewise FALSE.
  */
-function _sms_gateway_client($account = NULL) {
-  global $user;
-
-  if (!isset($account)) {
-    $account = $user;
-  }
-
-  if ($config = sms_gateway_config_load_by_user($account)) {
-    return new SMSGatewayConnector($config->username, $config->password);
-  }
-
-  return FALSE;
+function sms_gateway_client($config) {
+  return new SmsGatewayConnector($config->username, $config->password);
 }
 
 /**
