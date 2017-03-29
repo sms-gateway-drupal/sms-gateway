@@ -49,7 +49,7 @@ function sms_gateway_config_form($form, &$form_state, $config, $status) {
 
   $devices = FALSE;
   if ($status) {
-    $devices = sms_gateway_devices('list');
+    $devices = sms_gateway_devices($config, 'list');
 
     if ($devices === FALSE) {
       drupal_set_message(t('Provided credentials are incorrect.'), 'error');

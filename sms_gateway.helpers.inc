@@ -41,12 +41,22 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
 }
 
 /**
- * Helper devices.
+ * Retrieves the devices depending on the action.
+ *
+ * @param object $config
+ *   The sms_gateway_config entity.
+ * @param string $action
+ *   The action.
+ * @param array $options
+ *   The options to set when retrieving the devices.
+ *
+ * @return mixed
+ *   Output depending on the action.
  */
-function sms_gateway_devices($action = "status", array $options = array()) {
+function sms_gateway_devices($config, $action = "status", array $options = array()) {
   $options += array('properties' => array('id', 'name'));
 
-  $api_client = _sms_gateway_client();
+  $api_client = sms_gateway_client($config);
   $devices = $api_client->getDevices();
 
   if (!$devices) {
