@@ -41,12 +41,22 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
 }
 
 /**
- * Helper devices.
+ * Retrieves the devices depending on the action.
+ *
+ * @param object $config
+ *   The sms_gateway_config entity.
+ * @param string $action
+ *   The action.
+ * @param array $options
+ *   The options to set when retrieving the devices.
+ *
+ * @return mixed
+ *   Output depending on the action.
  */
-function sms_gateway_devices($action = "status", array $options = array()) {
+function sms_gateway_devices($config, $action = "status", array $options = array()) {
   $options += array('properties' => array('id', 'name'));
 
-  $api_client = _sms_gateway_client();
+  $api_client = sms_gateway_client($config);
   $devices = $api_client->getDevices();
 
   if (!$devices) {
@@ -86,26 +96,16 @@ function sms_gateway_status() {
 }
 
 /**
- * Retrieves the client for the current user.
+ * Retrieves the client.
  *
- * @param object $account
- *   (optional The account to get the sms_gateway_config entity.
+ * @param object $config
+ *   The sms_gateway_config entity.
  *
  * @return SmsGatewayConnector|false
  *   The connector client; othewise FALSE.
  */
-function _sms_gateway_client($account = NULL) {
-  global $user;
-
-  if (!isset($account)) {
-    $account = $user;
-  }
-
-  if ($config = sms_gateway_config_load_by_user($account)) {
-    return new SMSGatewayConnector($config->username, $config->password);
-  }
-
-  return FALSE;
+function sms_gateway_client($config) {
+  return new SmsGatewayConnector($config->username, $config->password);
 }
 
 /**
