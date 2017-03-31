@@ -5,3 +5,5 @@ dependencies[] = entity
 
 files[] = sms_gateway.connector.inc
 stylesheets[all][] = sms_gateway.css
+
+configure = admin/config/sms-gateway
