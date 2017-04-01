@@ -44,7 +44,10 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
  * Retrieves the devices depending on the action.
  *
  * @param string $action
- *   The action.
+ *   The action with either of the values:
+ *   - status: Retrieves the status.
+ *   - total: Retrieves the number of devices.
+ *   - list: Retrieves the devices.
  * @param array $options
  *   The options to set when retrieving the devices:
  *   - (optional) properties: The properties to filter by.

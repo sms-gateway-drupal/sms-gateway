@@ -36,13 +36,6 @@ class SmsGatewayConnector {
   }
 
   /**
-   * Checks if the server is available.
-   */
-  public function isAvailable() {
-    return $this->sendResource('', array(), 'GET');
-  }
-
-  /**
    * Sends a POST request to smsgateway.me.
    *
    * @param string $resource
