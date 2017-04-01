@@ -101,6 +101,13 @@ function sms_gateway_menu() {
     'title' => 'Message detail',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  $items['admin/sms/message/manage/1/view/1'] = array(
+    'title' => 'Message detail with preloaded reply',
+    'page callback' => 'sms_gateway_message_detail_reply_page',
+    'access arguments' => array('administer sms gateway'),
+    'file' => 'includes/message.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
   $items['admin/sms/message/manage/1/delete'] = array(
     'title' => 'Delete message detail',
     'page callback' => 'sms_gateway_message_delete_page',

@@ -20,6 +20,13 @@ function sms_gateway_message_detail_page() {
 }
 
 /**
+ * Menu callback; displays sms gateway message detail reply page.
+ */
+function sms_gateway_message_detail_reply_page() {
+  return 'Message detail page with preloaded reply.';
+}
+
+/**
  * Menu callback; displays sms gateway message delete page.
  */
 function sms_gateway_message_delete_page() {
