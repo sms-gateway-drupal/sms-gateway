@@ -117,6 +117,24 @@ function sms_gateway_client($config) {
 }
 
 /**
+ * Return messages depending on the HTTP status code.
+ *
+ * @param int $status_code
+ *   The status code.
+ *
+ * @return mixed
+ *   The message to return; otherwise TRUE.
+ */
+function sms_gateway_status_message($status_code) {
+  switch ($status_code) {
+    case 401:
+      return t('Invalid credentials.');
+  }
+
+  return TRUE;
+}
+
+/**
  * Convert unixtimestamp to time ago.
  *
  * Source: http://stackoverflow.com/a/18602474/2931717
