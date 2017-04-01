@@ -45,7 +45,7 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
  *
  * @param string $action
  *   The action with either of the values:
- *   - status: Retrieves the status.
+ *   - status: Retrieves the HTTP code status.
  *   - total: Retrieves the number of devices.
  *   - list: Retrieves the devices.
  * @param array $options
@@ -65,10 +65,10 @@ function sms_gateway_devices($action = "status", array $options = array()) {
   );
 
   $api_client = sms_gateway_client($options['config']);
-  $devices = $api_client->getDevices();
+  list($devices, $info) = $api_client->getDevices();
 
-  if (!$devices) {
-    return FALSE;
+  if ($action === 'status') {
+    return $info['http_code'];
   }
 
   if ($action === "status") {
@@ -83,7 +83,7 @@ function sms_gateway_devices($action = "status", array $options = array()) {
     $devices = $devices['result']['data'];
     $devices = _sms_gateway_array($devices, $options['properties']);
 
-    return $devices;
+    return array($devices, $info['http_code']);
   }
 }
 

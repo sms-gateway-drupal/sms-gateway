@@ -45,8 +45,10 @@ class SmsGatewayConnector {
    * @param string $method
    *   Whether to use GET or POST.
    *
-   * @return bool
-   *   Whether the request was made successfully or not.
+   * @return mixed
+   *   An array which values contains the following:
+   *   - Response data.
+   *   - cURL info from the request.
    *
    * @todo Would be nice to use drupal_http_request() although `verify_peer`
    * needs to be disabled. Unfortunately, we can't get it to work (using
@@ -83,9 +85,11 @@ class SmsGatewayConnector {
       return FALSE;
     }
 
+    $info = curl_getinfo($request);
+
     curl_close($request);
 
-    return $response;
+    return array($response, $info);
   }
 
   /**
@@ -99,19 +103,21 @@ class SmsGatewayConnector {
    *   Whether to use GET or POST.
    *
    * @return mixed
-   *   The JSON data returned from smsgateway.me converted to an array.
+   *   An array which values contains the following:
+   *   - Array of Json decoded response data.
+   *   - cURL info from the request.
    */
   protected function makeRequest($resource = '', array $data = array(), $method = 'POST') {
-    $response = $this->sendResource($resource, $data, $method);
+    list($data, $info) = $this->sendResource($resource, $data, $method);
 
-    if ($response) {
-      $json_response = drupal_json_decode($response);
-      if (!empty($json_response['success'])) {
-        return $json_response;
+    if ($data) {
+      $json = drupal_json_decode($data);
+      if (!empty($json['success'])) {
+        return array($json, $info);
       }
     }
 
-    return FALSE;
+    return array(FALSE, $info);
   }
 
 }

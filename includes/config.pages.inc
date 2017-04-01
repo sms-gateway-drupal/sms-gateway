@@ -17,7 +17,7 @@ function sms_gateway_config_page() {
     $config = sms_gateway_config_create($user);
   }
 
-  $devices = sms_gateway_devices('list', array('config' => $config));
+  list($devices, $status) = sms_gateway_devices('list', array('config' => $config));
   $devices = !empty($devices) ? array_column($devices, 'name', 'id') : array();
 
   return drupal_get_form('sms_gateway_config_form', $config, $devices);
