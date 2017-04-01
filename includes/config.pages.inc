@@ -17,15 +17,18 @@ function sms_gateway_config_page() {
     $config = sms_gateway_config_create($user);
   }
 
-  return drupal_get_form('sms_gateway_config_form', $config);
+  $devices = sms_gateway_devices('list', array('config' => $config));
+  $devices = !empty($devices) ? array_column($devices, 'name', 'id') : array();
+
+  return drupal_get_form('sms_gateway_config_form', $config, $devices);
 }
 
 /**
  * Form constructor for sms gateway config form.
  */
-function sms_gateway_config_form($form, &$form_state, $config) {
+function sms_gateway_config_form($form, &$form_state, $config, $devices) {
   $form_state['config'] = $config;
-  $devices = !empty($form_state['devices']) ? $form_state['devices'] : array();
+  $devices = !empty($form_state['devices']) ? $form_state['devices'] : $devices;
 
   $form['#prefix'] = '<div id="' . drupal_html_id('form-wrapper') . '">';
   $form['#suffix'] = '</div>';
