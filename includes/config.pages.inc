@@ -17,16 +17,24 @@ function sms_gateway_config_page() {
     $config = sms_gateway_config_create($user);
   }
 
-  list($devices, $status) = sms_gateway_devices('list', array('config' => $config));
-  $devices = !empty($devices) ? array_column($devices, 'name', 'id') : array();
+  $devices = array();
+  $reachable = TRUE;
+  if (empty($config->is_new)) {
+    list($devices, $status) = sms_gateway_devices('list', array('config' => $config));
+    $devices = !empty($devices) ? array_column($devices, 'name', 'id') : array();
 
-  return drupal_get_form('sms_gateway_config_form', $config, $devices);
+    if (($status = sms_gateway_status_message($status)) !== TRUE) {
+      drupal_set_message($status, 'error');
+    }
+  }
+
+  return drupal_get_form('sms_gateway_config_form', $config, $devices, $reachable);
 }
 
 /**
  * Form constructor for sms gateway config form.
  */
-function sms_gateway_config_form($form, &$form_state, $config, $devices) {
+function sms_gateway_config_form($form, &$form_state, $config, $devices, $reachable) {
   $form_state['config'] = $config;
   $devices = !empty($form_state['devices']) ? $form_state['devices'] : $devices;
 
@@ -35,13 +43,15 @@ function sms_gateway_config_form($form, &$form_state, $config, $devices) {
 
   $form['credentials']['#tree'] = TRUE;
 
+  // Credentials are only enabled when the site is reachable and we are not
+  // able to retrieve devices.
   $form['credentials']['username'] = array(
     '#type' => 'textfield',
     '#title' => t('Username'),
     '#description' => t('Your smsgateway.me username.'),
     '#required' => TRUE,
     '#default_value' => $form_state['config']->username,
-    '#disabled' => !empty($devices),
+    '#disabled' => !(empty($devices) && $reachable),
   );
 
   $form['credentials']['password'] = array(
@@ -49,7 +59,7 @@ function sms_gateway_config_form($form, &$form_state, $config, $devices) {
     '#title' => t('Password'),
     '#description' => t('Your smsgateway.me password.'),
     '#required' => TRUE,
-    '#disabled' => !empty($devices),
+    '#disabled' => !(empty($devices) && $reachable),
   );
 
   $form['credentials']['saved_password'] = array(
@@ -106,7 +116,7 @@ function sms_gateway_config_form_validate($form, &$form_state) {
   $form_state['config']->password = !empty($password) ? $password : $saved_password;
 
   if (empty($form_state['devices'])) {
-    $devices = sms_gateway_devices('list', array('config' => $form_state['config']));
+    list($devices, $status) = sms_gateway_devices('list', array('config' => $form_state['config']));
 
     if (empty($devices)) {
       form_set_error('credentials', t('Incorrect credentials.'));
