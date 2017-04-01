@@ -50,7 +50,7 @@ function sms_gateway_menu() {
     'title' => 'SMS gateway',
     'page callback' => 'sms_gateway_config_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/config.pages.inc',
     'weight' => 0,
   );
   $items['admin/config/sms-gateway/config'] = array(
