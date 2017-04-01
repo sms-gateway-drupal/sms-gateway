@@ -71,17 +71,18 @@ function sms_gateway_devices($action = "status", array $options = array()) {
     return $info['http_code'];
   }
 
-  if ($action === "status") {
-    return $devices['status'];
-  }
-
   if ($action === "total") {
     return $devices['result']['total'];
   }
 
   if ($action === "list") {
-    $devices = $devices['result']['data'];
-    $devices = _sms_gateway_array($devices, $options['properties']);
+    if ($devices) {
+      $devices = $devices['result']['data'];
+      $devices = _sms_gateway_array($devices, $options['properties']);
+    }
+    else {
+      $devices = array();
+    }
 
     return array($devices, $info['http_code']);
   }
