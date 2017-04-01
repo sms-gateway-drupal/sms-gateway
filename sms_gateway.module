@@ -68,7 +68,7 @@ function sms_gateway_menu() {
     'title' => 'Devices',
     'page callback' => 'sms_gateway_devices_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/device.pages.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 1,
   );
@@ -78,7 +78,7 @@ function sms_gateway_menu() {
     'title' => 'SMS',
     'page callback' => 'sms_gateway_message_list_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/message.pages.inc',
   );
   $items['admin/sms/message'] = array(
     'title' => 'Messages',
@@ -94,7 +94,7 @@ function sms_gateway_menu() {
     'title' => 'Message detail',
     'page callback' => 'sms_gateway_message_detail_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/message.pages.inc',
     'type' => MENU_LOCAL_TASK,
   );
   $items['admin/sms/message/manage/1/view'] = array(
@@ -105,13 +105,13 @@ function sms_gateway_menu() {
     'title' => 'Delete message detail',
     'page callback' => 'sms_gateway_message_delete_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/message.pages.inc',
   );
   $items['admin/sms/message/send'] = array(
     'title' => 'Send message',
     'page callback' => 'sms_gateway_message_send_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/message.pages.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 10,
   );
@@ -121,14 +121,14 @@ function sms_gateway_menu() {
     'title' => 'Send message',
     'page callback' => 'sms_gateway_send_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/message.pages.inc',
     'weight' => 0,
   );
   $items['admin/sms/messages'] = array(
     'title' => 'Messages',
     'page callback' => 'sms_gateway_messages_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/message.pages.inc',
     'weight' => 10,
   );
 
@@ -137,7 +137,7 @@ function sms_gateway_menu() {
     'title' => 'Contacts',
     'page callback' => 'sms_gateway_contact_list_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/contact.pages.inc',
     'weight' => '20',
     'type' => MENU_LOCAL_TASK,
   );
@@ -150,7 +150,7 @@ function sms_gateway_menu() {
     'title' => 'Contact detail',
     'page callback' => 'sms_gateway_contact_detail_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/contact.pages.inc',
   );
   $items['admin/sms/contact/manage/1/view'] = array(
     'title' => 'Contact detail',
@@ -160,19 +160,19 @@ function sms_gateway_menu() {
     'title' => 'Edit contact detail',
     'page callback' => 'sms_gateway_contact_edit_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/contact.pages.inc',
   );
   $items['admin/sms/contact/manage/1/delete'] = array(
     'title' => 'Delete contact detail',
     'page callback' => 'sms_gateway_contact_delete_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/contact.pages.inc',
   );
   $items['admin/sms/contact/add'] = array(
     'title' => 'Add contact',
     'page callback' => 'sms_gateway_contact_add_page',
     'access arguments' => array('administer sms gateway'),
-    'file' => 'sms_gateway.pages.inc',
+    'file' => 'includes/contact.pages.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 10,
   );
