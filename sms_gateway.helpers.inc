@@ -45,7 +45,7 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
  *
  * @param string $action
  *   The action with either of the values:
- *   - status: Retrieves the status.
+ *   - status: Retrieves the HTTP code status.
  *   - total: Retrieves the number of devices.
  *   - list: Retrieves the devices.
  * @param array $options
@@ -65,14 +65,10 @@ function sms_gateway_devices($action = "status", array $options = array()) {
   );
 
   $api_client = sms_gateway_client($options['config']);
-  $devices = $api_client->getDevices();
+  list($devices, $info) = $api_client->getDevices();
 
-  if (!$devices) {
-    return FALSE;
-  }
-
-  if ($action === "status") {
-    return $devices['status'];
+  if ($action === 'status') {
+    return $info['http_code'];
   }
 
   if ($action === "total") {
@@ -80,10 +76,15 @@ function sms_gateway_devices($action = "status", array $options = array()) {
   }
 
   if ($action === "list") {
-    $devices = $devices['result']['data'];
-    $devices = _sms_gateway_array($devices, $options['properties']);
+    if ($devices) {
+      $devices = $devices['result']['data'];
+      $devices = _sms_gateway_array($devices, $options['properties']);
+    }
+    else {
+      $devices = array();
+    }
 
-    return $devices;
+    return array($devices, $info['http_code']);
   }
 }
 
@@ -114,6 +115,24 @@ function sms_gateway_status() {
  */
 function sms_gateway_client($config) {
   return new SmsGatewayConnector($config->username, $config->password);
+}
+
+/**
+ * Return messages depending on the HTTP status code.
+ *
+ * @param int $status_code
+ *   The status code.
+ *
+ * @return mixed
+ *   The message to return; otherwise TRUE.
+ */
+function sms_gateway_status_message($status_code) {
+  switch ($status_code) {
+    case 401:
+      return t('Invalid credentials.');
+  }
+
+  return TRUE;
 }
 
 /**
