@@ -59,12 +59,7 @@ function sms_gateway_menu() {
   );
 
   // Devices.
-  $items['admin/config/sms-gateway/config/edit'] = array(
-    'title' => 'Edit',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'weight' => 0,
-  );
-  $items['admin/config/sms-gateway/config/devices'] = array(
+  $items['admin/config/sms-gateway/devices'] = array(
     'title' => 'Devices',
     'page callback' => 'sms_gateway_devices_page',
     'access arguments' => array('administer sms gateway'),
