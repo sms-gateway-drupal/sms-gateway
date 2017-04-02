@@ -9,12 +9,10 @@
  * Menu callback; displays sms gateway devices page.
  */
 function sms_gateway_devices_page() {
-  global $user;
-
-  $config = sms_gateway_config_load_by_user($user);
+  $config = sms_gateway_config();
 
   if (!$config) {
-    $config = sms_gateway_config_create($user);
+    $config = sms_gateway_config_create();
   }
 
   return drupal_get_form('sms_gateway_devices_form', $config);
@@ -55,7 +53,7 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
     '#default_tab' => 'edit-',
   );
 
-  foreach ($devices as $device) {
+  foreach ($devices[0] as $device) {
     $form['device_' . $device['id']] = array(
       '#type' => 'fieldset',
       '#title' => $device['name'],

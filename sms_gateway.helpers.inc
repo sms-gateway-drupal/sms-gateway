@@ -57,14 +57,11 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
  *   Output depending on the action.
  */
 function sms_gateway_devices($action = "status", array $options = array()) {
-  global $user;
-
   $options += array(
     'properties' => array('id', 'name'),
-    'config' => sms_gateway_config_load_by_user($user),
   );
 
-  $api_client = sms_gateway_client($options['config']);
+  $api_client = sms_gateway_client();
   list($devices, $info) = $api_client->getDevices();
 
   if ($action === 'status') {
@@ -107,13 +104,11 @@ function sms_gateway_status() {
 /**
  * Retrieves the client.
  *
- * @param object $config
- *   The sms_gateway_config entity.
- *
  * @return SmsGatewayConnector|false
  *   The connector client; othewise FALSE.
  */
-function sms_gateway_client($config) {
+function sms_gateway_client() {
+  $config = sms_gateway_config();
   return new SmsGatewayConnector($config->username, $config->password);
 }
 
