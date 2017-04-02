@@ -12,7 +12,7 @@ function sms_gateway_devices_page() {
   $config = sms_gateway_config();
 
   if (!$config) {
-    $config = sms_gateway_config_create($user);
+    $config = sms_gateway_config_create();
   }
 
   return drupal_get_form('sms_gateway_devices_form', $config);

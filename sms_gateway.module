@@ -218,15 +218,14 @@ function sms_gateway_config() {
 /**
  * Creates a new sms_gateway_config entity.
  *
- * @param object $account
- *   The account to use.
- *
  * @return object|false
  *   An sms_gateway_config entity.
  */
-function sms_gateway_config_create($account) {
+function sms_gateway_config_create() {
+  global $user;
+
   return entity_get_controller('sms_gateway_config')->create(array(
-    'uid' => $account->uid,
+    'uid' => $user->uid,
     'username' => '',
     'password' => '',
     'device' => 0,
