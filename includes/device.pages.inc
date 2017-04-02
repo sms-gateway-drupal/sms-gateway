@@ -55,7 +55,7 @@ function sms_gateway_devices_form($form, &$form_state, $config) {
     '#default_tab' => 'edit-',
   );
 
-  foreach ($devices as $device) {
+  foreach ($devices[0] as $device) {
     $form['device_' . $device['id']] = array(
       '#type' => 'fieldset',
       '#title' => $device['name'],
