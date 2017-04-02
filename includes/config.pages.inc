@@ -9,9 +9,7 @@
  * Menu callback; displays sms gateway config form.
  */
 function sms_gateway_config_page() {
-  global $user;
-
-  $config = sms_gateway_config_load_by_user($user);
+  $config = sms_gateway_config();
 
   if (!$config) {
     $config = sms_gateway_config_create($user);

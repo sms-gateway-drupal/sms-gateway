@@ -57,11 +57,9 @@ function _sms_gateway_array(array $arrays = array(), array $keys = array()) {
  *   Output depending on the action.
  */
 function sms_gateway_devices($action = "status", array $options = array()) {
-  global $user;
-
   $options += array(
     'properties' => array('id', 'name'),
-    'config' => sms_gateway_config_load_by_user($user),
+    'config' => sms_gateway_config(),
   );
 
   $api_client = sms_gateway_client($options['config']);
