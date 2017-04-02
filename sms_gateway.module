@@ -201,22 +201,6 @@ function sms_gateway_entity_info() {
 }
 
 /**
- * Loads an sms_gateway_config entity.
- *
- * @param int $id
- *   The ID of the sms_gateway_config entity.
- * @param bool $reset
- *   Whether to reset the cache.
- *
- * @return object|false
- *   The loaded sms_gateway_config; otherwise FALSE.
- */
-function sms_gateway_config_load($id, $reset = FALSE) {
-  $configs = sms_gateway_config_load_multiple(array($id), array(), $reset);
-  return reset($configs);
-}
-
-/**
  * Loads multiple sms_gateway_config entities by ID or based on conditions.
  *
  * @param array|false $ids
