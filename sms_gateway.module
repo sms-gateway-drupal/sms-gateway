@@ -49,6 +49,7 @@ function sms_gateway_menu() {
   $items['admin/config/sms-gateway'] = array(
     'title' => 'SMS gateway',
     'page callback' => 'sms_gateway_config_page',
+    'access callback' => 'sms_gateway_is_reachable',
     'access arguments' => array('administer sms gateway'),
     'file' => 'includes/config.pages.inc',
     'weight' => 0,
@@ -62,6 +63,7 @@ function sms_gateway_menu() {
   $items['admin/config/sms-gateway/devices'] = array(
     'title' => 'Devices',
     'page callback' => 'sms_gateway_devices_page',
+    'access callback' => 'sms_gateway_is_valid_credentials',
     'access arguments' => array('administer sms gateway'),
     'file' => 'includes/device.pages.inc',
     'type' => MENU_LOCAL_TASK,
@@ -72,6 +74,7 @@ function sms_gateway_menu() {
   $items['admin/sms'] = array(
     'title' => 'SMS',
     'page callback' => 'sms_gateway_message_list_page',
+    'access callback' => 'sms_gateway_is_valid_credentials',
     'access arguments' => array('administer sms gateway'),
     'file' => 'includes/message.pages.inc',
   );
