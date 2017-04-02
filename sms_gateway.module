@@ -201,16 +201,14 @@ function sms_gateway_entity_info() {
 }
 
 /**
- * Loads the sms_gateway_config entity by an account.
- *
- * @param object $account
- *   The account to use.
+ * Loads the sms_gateway_config irrespective.
  *
  * @return object|false
  *   The loaded sms_gateway_config entity; otherwise, FALSE.
  */
-function sms_gateway_config_load_by_user($account) {
-  $configs = sms_gateway_config_load_multiple(FALSE, array('uid' => $account->uid));
+function sms_gateway_config() {
+  global $user;
+  $configs = entity_load('sms_gateway_config', FALSE, array('uid' => $user->uid));
   return reset($configs);
 }
 
