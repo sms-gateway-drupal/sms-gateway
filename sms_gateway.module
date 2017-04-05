@@ -198,6 +198,22 @@ function sms_gateway_entity_info() {
       'base table' => 'sms_gateway_config',
       'entity keys' => array('id' => 'id'),
     ),
+    'sms_gateway_contact' => array(
+      'label' => t('Sms gateway contact'),
+      'plural label' => t('Sms gateway contacts'),
+      'description' => t('Sms gateway contacts.'),
+      'base table' => 'sms_gateway_contact',
+      'entity keys' => array('id' => 'id'),
+      'fieldable' => TRUE,
+      'bundles' => array(
+        'sms_gateway_contact' => array(
+          'label' => t('Sms gateway contact'),
+          'admin' => array(
+            'path' => 'admin/config/sms-gateway/contact',
+          ),
+        ),
+      ),
+    ),
   );
 
   return $return;
