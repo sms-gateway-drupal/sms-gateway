@@ -202,6 +202,7 @@ function sms_gateway_entity_info() {
       'label' => t('Sms gateway contact'),
       'plural label' => t('Sms gateway contacts'),
       'description' => t('Sms gateway contacts.'),
+      'controller class' => 'EntityAPIController',
       'base table' => 'sms_gateway_contact',
       'entity keys' => array('id' => 'id'),
       'fieldable' => TRUE,
@@ -288,7 +289,7 @@ function sms_gateway_contact_create() {
     'uid' => $user->uid,
     'name' => '',
     'number' => '',
-    'contact_id' => '',
+    'contact_id' => 0,
   ));
 }
 
