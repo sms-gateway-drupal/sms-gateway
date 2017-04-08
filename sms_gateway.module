@@ -274,3 +274,33 @@ function sms_gateway_is_reachable() {
 function sms_gateway_is_valid_credentials() {
   return TRUE;
 }
+
+/**
+ * Creates a new sms_gateway_contact entity.
+ *
+ * @return object|false
+ *   An sms_gateway_config entity.
+ */
+function sms_gateway_contact_create() {
+  global $user;
+
+  return entity_get_controller('sms_gateway_contact')->create(array(
+    'uid' => $user->uid,
+    'name' => '',
+    'number' => '',
+    'contact_id' => '',
+  ));
+}
+
+/**
+ * Saves an sms_gateway_contact entity.
+ *
+ * @param object $contact
+ *   The contact to save.
+ *
+ * @return int
+ *   Either the status SAVED_NEW or SAVED_UPDATED.
+ */
+function sms_gateway_contact_save($contact) {
+  return entity_get_controller('sms_gateway_contact')->save($contact);
+}
